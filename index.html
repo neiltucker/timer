@@ -1,0 +1,121 @@
+<html>
+<head>
+  <title>Timer (Created by ChatGPT</title>
+  <style>
+    button {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+    #countdown {
+      font-size: 72px;
+    }
+    h1 {
+      font-size: 72px;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    p {
+      text-align: center;
+    }
+    #customTimeInput {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Timer</h1>
+  <p><h3>Specify the countdown time in minutes:</h3></p>
+  <select id="timeInput">
+    <option value="5">5 minutes</option>
+    <option value="10">10 minutes</option>
+    <option value="15">15 minutes</option>
+    <option value="30">30 minutes</option>
+    <option value="45">45 minutes</option>
+    <option value="60">60 minutes</option>
+    <option value="custom">Custom time</option>
+  </select>
+  <textarea id="customTimeInput"></textarea>
+  <button onclick="startTimer()">Start</button>
+  <p id="countdown"></p>
+
+  <script>
+    document.body.style.color = "white";
+    document.body.style.backgroundColor = "black";
+    var timeInput = document.getElementById("timeInput");
+    var customTimeInput = document.getElementById("customTimeInput");
+
+    timeInput.addEventListener("change", function() {
+      if (timeInput.value === "custom") {
+        customTimeInput.style.display = "block";
+      } else {
+        customTimeInput.style.display = "none";
+      }
+    });
+
+    function startTimer() {
+      // Get the time in minutes from the input field
+      var time;
+      if (timeInput.value === "custom") {
+        time = customTimeInput.value;
+      } else {
+        time = timeInput.value;
+      }
+
+      // Calculate the number of seconds
+      var seconds = time * 60;
+
+      // Set the countdown element to the initial time
+      document.getElementById("countdown").innerHTML = time + " minute(s)";
+
+      // Set the interval to update the countdown every second
+      var interval = setInterval(function() {
+        seconds--;
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+        document.title = minutes + " minute(s)  " + remainingSeconds + " second(s)";
+        document.getElementById("countdown").innerHTML = minutes + " minute(s)  " + remainingSeconds + " second(s)";
+        if (seconds == 0) {
+          clearInterval(interval);
+          document.getElementById("countdown").innerHTML = "Time is up!";
+
+            // Check if the buttons already exist
+            var repeatButton = document.getElementById("repeatButton");
+            var resetButton = document.getElementById("resetButton");
+
+            // If the buttons do not exist, create them
+            if (!resetButton) {
+              resetButton = document.createElement("button");
+              resetButton.id = "resetButton";
+              resetButton.innerHTML = "Reset";
+              resetButton.addEventListener("click", function() {
+                location.reload();
+              });
+            }
+
+            if (!repeatButton) {
+              repeatButton = document.createElement("button");
+              repeatButton.id = "repeatButton";
+              repeatButton.innerHTML = "Repeat";
+              repeatButton.addEventListener("click", function() {
+                startTimer();
+              });
+            }
+
+            // Append or replace the buttons in the document
+            document.body.appendChild(repeatButton);
+            document.body.appendChild(resetButton);
+        }
+      }, 1000);
+    }
+</script>
+</body>
+</html>
