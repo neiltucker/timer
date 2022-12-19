@@ -74,15 +74,15 @@
       var seconds = time * 60;
 
       // Set the countdown element to the initial time
-      document.getElementById("countdown").innerHTML = time + " minute(s)";
+      document.getElementById("countdown").innerHTML = time + " minutes";
 
       // Set the interval to update the countdown every second
       var interval = setInterval(function() {
         seconds--;
         var minutes = Math.floor(seconds / 60);
         var remainingSeconds = seconds % 60;
-        document.title = minutes + " minute(s)  " + remainingSeconds + " second(s)";
-        document.getElementById("countdown").innerHTML = minutes + " minute(s)  " + remainingSeconds + " second(s)";
+        document.title = minutes + " minutes  " + remainingSeconds + " seconds";
+        document.getElementById("countdown").innerHTML = minutes + " minutes  " + remainingSeconds + " seconds";
         if (seconds == 0) {
           clearInterval(interval);
           document.getElementById("countdown").innerHTML = "Time is up!";
